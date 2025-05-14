@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:greenbus_frontend/Providers/authprovider.dart';
+import 'package:greenbus_frontend/screens/auth/authverify.dart';
+import 'package:greenbus_frontend/screens/auth/registerscreen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
