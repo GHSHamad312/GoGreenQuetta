@@ -12,11 +12,11 @@ A smart, eco-friendly mobile application for public transportation. Built using 
 
 **Green Bus App** addresses the common problems of public transportation by offering:
 
-- Real-time bus location & routes
-- Nearby bus stop detection
-- Digital transactions with history
-- Live bus capacity display
-- Account and settings management
+- Real-time bus location & routes  
+- Nearby bus stop detection  
+- Digital transactions with history  
+- Live bus capacity display  
+- Account and settings management  
 
 It combines user convenience, clean UI, and powerful backend integrations to deliver a robust commuting solution.
 
@@ -30,7 +30,7 @@ It combines user convenience, clean UI, and powerful backend integrations to del
 | Dart              | Programming language            |
 | Firebase Auth     | User authentication             |
 | Cloud Firestore   | Real-time NoSQL database        |
-| flutter Maps API   | Map and location services       |
+| Flutter Maps API  | Map and location services       |
 | Provider          | State management                |
 
 ---
@@ -38,61 +38,46 @@ It combines user convenience, clean UI, and powerful backend integrations to del
 ## ✨ Features
 
 - 🗺 **Bus Routes & Live Map**  
-  See real-time routes, stops, and ETAs directly on a map.
-
 - 📍 **Nearest Bus Stop Detection**  
-  Automatically identifies and lists nearby bus stops.
-
 - 💳 **Transactions**  
-  View fare history and securely manage payments.
-
 - 👤 **User Authentication & Management**  
-  Login, signup, profile settings, password reset, and logout.
-
 - ⚙️ **App Settings**  
-  Toggle preferences like theme and notifications.
-
 - 📶 **Bus Capacity Display**  
-  View how full each bus is before boarding.
-
 - 🧠 **Provider State Management**  
-  Efficient app state handling across components.
 
 ---
 
 ## 📸 Screenshots
 
-
-###  Home Screen  
-![Login Screen](assets/screenshots/11.jpg)
+### 🏠 Home Screen  
+<img src="assets/screenshots/11.jpg" alt="Home Screen" width="300"/>
 
 ### 🔐 Login Screen  
-![Login Screen](assets/screenshots/13.jpg)
+<img src="assets/screenshots/13.jpg" alt="Login Screen" width="300"/>
 
-### 🔐 Sign Up
-![Login Screen](assets/screenshots/12.jpg)
+### 📝 Sign Up  
+<img src="assets/screenshots/12.jpg" alt="Sign Up Screen" width="300"/>
 
 ### 🗺️ Bus Routes with Map  
-![Bus Map](assets/screenshots/10.jpg)
-![Bus Map](assets/screenshots/5.jpg)
+<img src="assets/screenshots/10.jpg" alt="Bus Map 1" width="300"/>  
+<img src="assets/screenshots/5.jpg" alt="Bus Map 2" width="300"/>
 
 ### 📍 Nearest Stop  
-![Nearest Stop](assets/screenshots/3.jpg)
+<img src="assets/screenshots/3.jpg" alt="Nearest Stop" width="300"/>
 
 ### 💳 Transactions  
-![Transactions](assets/screenshots/7.jpg)
-![Transactions](assets/screenshots/2.jpg)
-![Transactions](assets/screenshots/1.jpg)
+<img src="assets/screenshots/7.jpg" alt="Transactions 1" width="300"/>  
+<img src="assets/screenshots/2.jpg" alt="Transactions 2" width="300"/>  
+<img src="assets/screenshots/1.jpg" alt="Transactions 3" width="300"/>
 
 ### ⚙️ Settings  
-![Settings](assets/screenshots/6.jpg)
+<img src="assets/screenshots/6.jpg" alt="Settings" width="300"/>
 
 ---
 
 ## 🎥 Demo Video
 
-
-https://youtube.com/shorts/oliI5HO8isY?si=NF1Afs2LusV4jrhd
+[▶️ Watch Demo on YouTube](https://youtube.com/shorts/oliI5HO8isY?si=NF1Afs2LusV4jrhd)
 
 ---
 
@@ -100,9 +85,9 @@ https://youtube.com/shorts/oliI5HO8isY?si=NF1Afs2LusV4jrhd
 
 ### 📦 Prerequisites
 
-- Flutter SDK installed
-- Firebase project created
-- Android/iOS emulator or physical device
+- Flutter SDK installed  
+- Firebase project created  
+- Android/iOS emulator or physical device  
 
 ### 🛠 Installation
 
