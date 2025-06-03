@@ -64,28 +64,28 @@ It combines user convenience, clean UI, and powerful backend integrations to del
 
 
 ###  Home Screen  
-![Login Screen](assets\screenshots\11.jpg)
+![Login Screen](assets/screenshots/11.jpg)
 
 ### 🔐 Login Screen  
-![Login Screen](assets\screenshots\13.jpg)
+![Login Screen](assets/screenshots/13.jpg)
 
 ### 🔐 Sign Up
-![Login Screen](assets\screenshots\12.jpg)
+![Login Screen](assets/screenshots/12.jpg)
 
 ### 🗺️ Bus Routes with Map  
-![Bus Map](assets\screenshots\10.jpg)
-![Bus Map](assets\screenshots\5.jpg)
+![Bus Map](assets/screenshots/10.jpg)
+![Bus Map](assets/screenshots/5.jpg)
 
 ### 📍 Nearest Stop  
-![Nearest Stop](assets\screenshots\3.jpg)
+![Nearest Stop](assets/screenshots/3.jpg)
 
 ### 💳 Transactions  
-![Transactions](assets\screenshots\7.jpg)
-![Transactions](assets\screenshots\2.jpg)
-![Transactions](assets\screenshots\1.jpg)
+![Transactions](assets/screenshots/7.jpg)
+![Transactions](assets/screenshots/2.jpg)
+![Transactions](assets/screenshots/1.jpg)
 
 ### ⚙️ Settings  
-![Settings](assets\screenshots\6.jpg)
+![Settings](assets/screenshots/6.jpg)
 
 ---
 
