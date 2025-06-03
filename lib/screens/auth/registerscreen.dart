@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:greenbus_frontend/Providers/authprovider.dart';
-import 'package:greenbus_frontend/screens/auth/authverify.dart';
-import 'package:greenbus_frontend/screens/auth/registerscreen.dart';
+import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:provider/provider.dart';
 
 class Registerscreen extends StatelessWidget {
@@ -14,7 +13,9 @@ class Registerscreen extends StatelessWidget {
     const double pad_hor = 30;
     const double pad_ver = 20;
     final auth = Provider.of<Authprovider>(context);
+    final userdata = Provider.of<UserDataProvider>(context);
     final TextEditingController namecontroller = TextEditingController();
+    final TextEditingController phonecontroller = TextEditingController();
     final TextEditingController emailcontroller = TextEditingController();
     final TextEditingController passwordcontroller = TextEditingController();
     return Scaffold(
@@ -51,27 +52,16 @@ class Registerscreen extends StatelessWidget {
         ),
         toolbarHeight: 80,
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset("assets/transparent/logoGreenQuetta.png", width: 300),
             Padding(
-              padding: EdgeInsets.symmetric(),
-              child: Image.asset(
-                "assets/transparent/logoGreenQuetta.png",
-                width: 300,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 50,
-                left: 20,
-                right: 20,
-                bottom: 100,
-              ),
+              padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(bdr),
@@ -90,6 +80,40 @@ class Registerscreen extends StatelessWidget {
                         controller: namecontroller,
                         decoration: InputDecoration(
                           labelText: "Name",
+                          labelStyle: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(bdr),
+                            borderSide: BorderSide(
+                              color: const Color.fromARGB(56, 16, 255, 24),
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(bdr),
+                            borderSide: BorderSide(
+                              color: Colors.green,
+                              width: 2,
+                            ),
+                          ),
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      child: TextField(
+                        controller: phonecontroller,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          labelText: "Phone",
                           labelStyle: TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
@@ -148,6 +172,7 @@ class Registerscreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
                         controller: passwordcontroller,
+                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: "Password",
                           labelStyle: TextStyle(
@@ -186,6 +211,10 @@ class Registerscreen extends StatelessWidget {
                             await auth.register(
                               emailcontroller.text,
                               passwordcontroller.text,
+                            );
+                            await userdata.savedata(
+                              namecontroller.text,
+                              int.parse(phonecontroller.text),
                             );
                             Navigator.pop(context);
                           } catch (e) {

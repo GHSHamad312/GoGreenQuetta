@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:greenbus_frontend/screens/app/navmain.dart';
 import 'package:greenbus_frontend/screens/auth/Loginscreen.dart';
-import 'package:greenbus_frontend/screens/auth/registerscreen.dart';
 
 class Authverify extends StatelessWidget {
   const Authverify({super.key});
@@ -14,7 +14,7 @@ class Authverify extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
-          return ();
+          return HomeMain();
         } else {
           return LoginScreen();
         }

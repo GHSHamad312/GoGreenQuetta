@@ -1,15 +1,28 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:greenbus_frontend/Providers/authprovider.dart';
+import 'package:greenbus_frontend/Providers/busprovider.dart';
+import 'package:greenbus_frontend/Providers/navigationprovider.dart';
+import 'package:greenbus_frontend/Providers/routeprovider.dart';
+import 'package:greenbus_frontend/Providers/ticketprovider.dart';
+import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/screens/auth/authverify.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => Authprovider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => Authprovider()),
+        ChangeNotifierProvider(create: (_) => UserDataProvider()),
+        ChangeNotifierProvider(create: (_) => NavigationProvider()),
+        ChangeNotifierProvider(create: (_) => RouteProvider()..fetchRoutes()),
+        ChangeNotifierProvider(create: (_) => BusProvider()),
+        ChangeNotifierProvider(create: (_) => TicketProvider()),
+      ],
       child: GoGreenQuetta(),
     ),
   );

@@ -1,41 +1,47 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:greenbus_frontend/Providers/authprovider.dart';
-import 'package:greenbus_frontend/screens/auth/authverify.dart';
 import 'package:greenbus_frontend/screens/auth/registerscreen.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _obscurePassword = true;
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController passwordcontroller = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    const double bdr = 15;
-    const double pad_hor = 30;
-    const double pad_ver = 20;
+    double bdr = 15;
+    double pad_hor = 30;
     final auth = Provider.of<Authprovider>(context);
-    final TextEditingController emailcontroller = TextEditingController();
-    final TextEditingController passwordcontroller = TextEditingController();
+
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(116, 169, 255, 172),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(116, 169, 255, 172),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(),
+              padding: const EdgeInsets.symmetric(),
               child: Image.asset(
                 "assets/transparent/logoGreenQuetta.png",
                 width: 300,
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 50,
                 left: 20,
                 right: 20,
@@ -49,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         left: 20,
                         right: 20,
                         top: 50,
@@ -59,21 +65,21 @@ class LoginScreen extends StatelessWidget {
                         controller: emailcontroller,
                         decoration: InputDecoration(
                           labelText: "Email",
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
                             fontSize: 20,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: const Color.fromARGB(56, 16, 255, 24),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(56, 16, 255, 24),
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.green,
                               width: 2,
                             ),
@@ -84,26 +90,39 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
                         controller: passwordcontroller,
+                        obscureText: _obscurePassword,
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? FontAwesomeIcons.eyeSlash
+                                  : FontAwesomeIcons.eye,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
                           labelText: "Password",
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w400,
                             fontSize: 20,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: const Color.fromARGB(56, 16, 255, 24),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(56, 16, 255, 24),
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.green,
                               width: 2,
                             ),
@@ -113,7 +132,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(top: 20, left: 25),
                       child: Align(
                         alignment: Alignment.bottomLeft,
@@ -141,19 +160,24 @@ class LoginScreen extends StatelessWidget {
                             );
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Login failed")),
+                              const SnackBar(
+                                content: Text("Wrong email or password"),
+                              ),
                             );
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 50),
+                          minimumSize: const Size(double.infinity, 50),
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.green,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(bdr),
                           ),
                         ),
-                        child: Text("Login", style: TextStyle(fontSize: 20)),
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
                   ],
@@ -166,18 +190,20 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Registerscreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const Registerscreen(),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize: const Size(double.infinity, 50),
                   foregroundColor: Colors.green,
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(bdr),
                   ),
                 ),
-                child: Text("Signup", style: TextStyle(fontSize: 20)),
+                child: const Text("Signup", style: TextStyle(fontSize: 20)),
               ),
             ),
           ],

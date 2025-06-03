@@ -13,7 +13,14 @@ class Authprovider with ChangeNotifier {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       notifyListeners();
     } catch (e) {
-      print("failed login $e");
+      rethrow;
+    }
+  }
+
+  Future<void> Logout() async {
+    try {
+      await auth.signOut();
+    } catch (e) {
       rethrow;
     }
   }
@@ -26,7 +33,15 @@ class Authprovider with ChangeNotifier {
       );
       notifyListeners();
     } catch (e) {
-      print("Registration failed: $e");
+      rethrow;
+    }
+  }
+
+  // 👇 New function
+  Future<void> changePassword(String newPassword) async {
+    try {
+      await auth.currentUser?.updatePassword(newPassword);
+    } catch (e) {
       rethrow;
     }
   }
