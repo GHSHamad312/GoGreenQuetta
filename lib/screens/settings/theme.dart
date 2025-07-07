@@ -18,7 +18,6 @@ class _ThemeScreenState extends State<ThemeScreen> {
       backgroundColor: Colors.grey[100],
       body: Column(
         children: [
-          // Wave Header (matching ChangePasswordScreen)
           Stack(
             children: [
               ClipPath(

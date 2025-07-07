@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:greenbus_frontend/Providers/authprovider.dart';
 import 'package:greenbus_frontend/Providers/userdataprovider.dart';
+import 'package:greenbus_frontend/screens/auth/emailverify.dart';
+import 'package:greenbus_frontend/screens/auth/loginscreen.dart';
 import 'package:provider/provider.dart';
 
 class Registerscreen extends StatelessWidget {
@@ -18,7 +20,9 @@ class Registerscreen extends StatelessWidget {
     final TextEditingController phonecontroller = TextEditingController();
     final TextEditingController emailcontroller = TextEditingController();
     final TextEditingController passwordcontroller = TextEditingController();
+
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: const Color.fromARGB(255, 222, 255, 223),
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -28,7 +32,10 @@ class Registerscreen extends StatelessWidget {
           padding: EdgeInsets.only(left: 20),
           child: ElevatedButton.icon(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
@@ -52,193 +59,204 @@ class Registerscreen extends StatelessWidget {
         ),
         toolbarHeight: 80,
       ),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset("assets/transparent/logoGreenQuetta.png", width: 300),
-            Padding(
-              padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(bdr),
-                  color: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          reverse: true,
+          padding: const EdgeInsets.only(bottom: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              Image.asset("assets/transparent/logoGreenQuetta.png", width: 250),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 10,
+                  left: 20,
+                  right: 20,
+                  bottom: 0,
                 ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        top: 50,
-                        bottom: 20,
-                      ),
-                      child: TextField(
-                        controller: namecontroller,
-                        decoration: InputDecoration(
-                          labelText: "Name",
-                          labelStyle: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: const Color.fromARGB(56, 16, 255, 24),
-                              width: 2,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(bdr),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          top: 50,
+                          bottom: 20,
+                        ),
+                        child: TextField(
+                          controller: namecontroller,
+                          decoration: InputDecoration(
+                            labelText: "Name",
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 2,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: const Color.fromARGB(56, 16, 255, 24),
+                                width: 2,
+                              ),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: Colors.green,
+                                width: 2,
+                              ),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                      child: TextField(
-                        controller: phonecontroller,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
-                          labelText: "Phone",
-                          labelStyle: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: const Color.fromARGB(56, 16, 255, 24),
-                              width: 2,
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          bottom: 20,
+                        ),
+                        child: TextField(
+                          controller: phonecontroller,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            labelText: "Phone",
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 2,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: const Color.fromARGB(56, 16, 255, 24),
+                                width: 2,
+                              ),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: Colors.green,
+                                width: 2,
+                              ),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                      child: TextField(
-                        controller: emailcontroller,
-                        decoration: InputDecoration(
-                          labelText: "Email",
-                          labelStyle: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: const Color.fromARGB(56, 16, 255, 24),
-                              width: 2,
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          bottom: 20,
+                        ),
+                        child: TextField(
+                          controller: emailcontroller,
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 2,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: const Color.fromARGB(56, 16, 255, 24),
+                                width: 2,
+                              ),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: Colors.green,
+                                width: 2,
+                              ),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: TextField(
-                        controller: passwordcontroller,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: const Color.fromARGB(56, 16, 255, 24),
-                              width: 2,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: TextField(
+                          controller: passwordcontroller,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: "Password",
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(bdr),
-                            borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 2,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: const Color.fromARGB(56, 16, 255, 24),
+                                width: 2,
+                              ),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                              borderSide: BorderSide(
+                                color: Colors.green,
+                                width: 2,
+                              ),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
                           ),
-                          fillColor: Colors.white,
-                          filled: true,
                         ),
                       ),
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 40,
-                        horizontal: pad_hor,
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            await auth.register(
-                              emailcontroller.text,
-                              passwordcontroller.text,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 40,
+                          horizontal: pad_hor,
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (_) => EmailVerificationScreen(
+                                      email: emailcontroller.text,
+                                      password: passwordcontroller.text,
+                                      name: namecontroller.text,
+                                      phone: phonecontroller.text,
+                                    ),
+                              ),
                             );
-                            await userdata.savedata(
-                              namecontroller.text,
-                              int.parse(phonecontroller.text),
-                            );
-                            Navigator.pop(context);
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Registration failed")),
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 50),
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(bdr),
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(double.infinity, 50),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.green,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(bdr),
+                            ),
                           ),
+                          child: Text("SignUp", style: TextStyle(fontSize: 20)),
                         ),
-                        child: Text("SignUp", style: TextStyle(fontSize: 20)),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

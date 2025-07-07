@@ -17,7 +17,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Authprovider()),
-        ChangeNotifierProvider(create: (_) => UserDataProvider()),
+        ChangeNotifierProvider(create: (_) => UserDataProvider()..getdata()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => RouteProvider()..fetchRoutes()),
         ChangeNotifierProvider(create: (_) => BusProvider()),

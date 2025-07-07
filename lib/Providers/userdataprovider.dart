@@ -29,7 +29,6 @@ class UserDataProvider with ChangeNotifier {
     if (doc.exists) {
       userdata = doc.data() as Map<String, dynamic>;
       datafetched = true;
-      notifyListeners();
       return userdata;
     } else {
       throw Exception("User data not found");

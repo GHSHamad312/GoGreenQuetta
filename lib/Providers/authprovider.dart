@@ -3,12 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class Authprovider with ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  bool logging = false;
 
-  User? get currentuser => auth.currentUser;
+  User? get currentUser => auth.currentUser;
 
-  bool get isauthenticated => currentuser != null;
+  bool get isAuthenticated => currentUser != null;
 
-  Future<void> Login(String email, String password) async {
+  Future<void> login(String email, String password) async {
+    logging = true;
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       notifyListeners();
@@ -17,7 +19,7 @@ class Authprovider with ChangeNotifier {
     }
   }
 
-  Future<void> Logout() async {
+  Future<void> logout() async {
     try {
       await auth.signOut();
     } catch (e) {
@@ -25,7 +27,7 @@ class Authprovider with ChangeNotifier {
     }
   }
 
-  Future<void> register(String email, String password) async {
+  Future<void> registerUser(String email, String password) async {
     try {
       await auth.createUserWithEmailAndPassword(
         email: email,
@@ -37,7 +39,19 @@ class Authprovider with ChangeNotifier {
     }
   }
 
-  // 👇 New function
+  Future<void> sendVerificationEmail() async {
+    final user = auth.currentUser;
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+    }
+  }
+
+  Future<bool> checkEmailVerified() async {
+    final user = auth.currentUser;
+    await user?.reload();
+    return user?.emailVerified ?? false;
+  }
+
   Future<void> changePassword(String newPassword) async {
     try {
       await auth.currentUser?.updatePassword(newPassword);

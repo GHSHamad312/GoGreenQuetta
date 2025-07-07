@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:greenbus_frontend/Providers/authprovider.dart';
+import 'package:greenbus_frontend/screens/app/navmain.dart';
+import 'package:greenbus_frontend/screens/auth/emailverify.dart';
 import 'package:greenbus_frontend/screens/auth/registerscreen.dart';
 import 'package:provider/provider.dart';
 
@@ -37,12 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(),
               child: Image.asset(
                 "assets/transparent/logoGreenQuetta.png",
-                width: 300,
+                width: 250,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 50,
+                top: 20,
                 left: 20,
                 right: 20,
                 bottom: 20,
@@ -154,10 +157,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           try {
-                            await auth.Login(
+                            await auth.login(
                               emailcontroller.text,
                               passwordcontroller.text,
                             );
+
+                            final user = FirebaseAuth.instance.currentUser;
+                            await user?.reload();
+
+                            if (user != null && user.emailVerified) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (_) => HomeMain()),
+                              );
+                            } else {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (_) => EmailVerificationScreen(
+                                        email: emailcontroller.text,
+                                        password: passwordcontroller.text,
+                                        name: '',
+                                        phone: '',
+                                      ),
+                                ),
+                              );
+                            }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -174,10 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(bdr),
                           ),
                         ),
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(fontSize: 20),
-                        ),
+                        child: Text("Login", style: TextStyle(fontSize: 20)),
                       ),
                     ),
                   ],
@@ -188,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.symmetric(horizontal: pad_hor + 20),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const Registerscreen(),

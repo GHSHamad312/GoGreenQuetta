@@ -71,9 +71,7 @@ class SupportScreen extends StatelessWidget {
                     size: 16,
                     color: Colors.grey[600],
                   ),
-                  onTap: () {
-                    // TODO: Add FAQ navigation or dialog here
-                  },
+                  onTap: () {},
                 ),
               ],
             ),

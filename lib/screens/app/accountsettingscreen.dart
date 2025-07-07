@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/Providers/authprovider.dart';
 import 'package:greenbus_frontend/components/waveclipper.dart';
+import 'package:greenbus_frontend/screens/auth/loginscreen.dart';
 import 'package:greenbus_frontend/screens/settings/about.dart';
 import 'package:greenbus_frontend/screens/settings/change_password.dart';
 import 'package:greenbus_frontend/screens/settings/notifications.dart';
@@ -11,27 +12,40 @@ import 'package:greenbus_frontend/screens/settings/support.dart';
 import 'package:greenbus_frontend/screens/settings/theme.dart';
 import 'package:provider/provider.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  late Future<Map<String, dynamic>> _userFuture;
+
+  @override
+  void initState() {
+    super.initState();
     final userProvider = Provider.of<UserDataProvider>(context, listen: false);
+    _userFuture = userProvider.getdata();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final authProvider = Provider.of<Authprovider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Column(
         children: [
-          FutureBuilder(
-            future: userProvider.getdata(),
+          FutureBuilder<Map<String, dynamic>>(
+            future: _userFuture,
             builder: (context, snapshot) {
               String name = "No Name";
               String email = "No Email";
 
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.hasData) {
-                final data = snapshot.data as Map<String, dynamic>;
+                final data = snapshot.data!;
                 name = data["name"] ?? name;
                 email = data["email"] ?? email;
               }
@@ -45,16 +59,16 @@ class AccountScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 40,
-                        backgroundColor: const Color.fromARGB(255, 46, 125, 50),
+                        backgroundColor: Color.fromARGB(255, 46, 125, 50),
                         child: Icon(
                           Icons.person,
                           size: 40,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,16 +76,16 @@ class AccountScreen extends StatelessWidget {
                           children: [
                             Text(
                               name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               email,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.white70,
                               ),
@@ -88,7 +102,7 @@ class AccountScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildOption(
                   context,
                   FontAwesomeIcons.userPen,
@@ -136,15 +150,15 @@ class AccountScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: ListTile(
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 10,
                       ),
-                      leading: Icon(
+                      leading: const Icon(
                         FontAwesomeIcons.arrowRightFromBracket,
                         color: Colors.redAccent,
                       ),
-                      title: Text(
+                      title: const Text(
                         "Logout",
                         style: TextStyle(
                           fontSize: 16,
@@ -158,13 +172,21 @@ class AccountScreen extends StatelessWidget {
                         color: Colors.grey[600],
                       ),
                       onTap: () async {
-                        await authProvider.Logout();
-                        Navigator.of(context).pushReplacementNamed("/login");
+                        await authProvider.logout();
+                        if (mounted) {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                            (route) => false,
+                          );
+                        }
                       },
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -177,7 +199,7 @@ class AccountScreen extends StatelessWidget {
     BuildContext context,
     IconData icon,
     String title,
-    Widget? screen, {
+    Widget screen, {
     VoidCallback? onTap,
   }) {
     return Padding(
@@ -186,11 +208,14 @@ class AccountScreen extends StatelessWidget {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 10,
+          ),
           leading: Icon(icon, color: Colors.green.shade700),
           title: Text(
             title,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
@@ -201,7 +226,7 @@ class AccountScreen extends StatelessWidget {
               onTap ??
               () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => screen!),
+                MaterialPageRoute(builder: (_) => screen),
               ),
         ),
       ),

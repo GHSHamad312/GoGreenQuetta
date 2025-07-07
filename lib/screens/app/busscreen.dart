@@ -15,12 +15,6 @@ class _BusScreenState extends State<BusScreen> {
   final tabs = ["Routes", "Capacity", "Nearest Bus"];
 
   @override
-  void initState() {
-    super.initState();
-    Provider.of<RouteProvider>(context, listen: false).fetchRoutes();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<RouteProvider>(context);
 

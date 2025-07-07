@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:greenbus_frontend/Providers/routeprovider.dart';
 import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/components/homecard.dart';
 import 'package:greenbus_frontend/screens/app/busscreen.dart';
 import 'package:greenbus_frontend/screens/app/notis.dart';
 import 'package:greenbus_frontend/screens/app/ticketbuyscreen.dart';
 import 'package:greenbus_frontend/screens/buses/nearestscreen.dart';
-import 'package:greenbus_frontend/screens/buses/routescreen.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late Future<Map<String, dynamic>> _userFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    final userdata = Provider.of<UserDataProvider>(context, listen: false);
+    _userFuture = userdata.getdata();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final routes = Provider.of<RouteProvider>(context);
-    final userName = Provider.of<UserDataProvider>(context).userdata['name'];
+    final userdata = Provider.of<UserDataProvider>(context);
 
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Header with welcome message
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Row(
@@ -31,20 +43,44 @@ class Home extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Welcome Back!",
                         style: TextStyle(
                           fontSize: 20,
-                          color: const Color.fromARGB(255, 75, 75, 75),
+                          color: Color.fromARGB(255, 75, 75, 75),
                         ),
                       ),
-                      Text(
-                        userName,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 46, 125, 50),
-                        ),
+                      FutureBuilder<Map<String, dynamic>>(
+                        future: _userFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            );
+                          } else if (snapshot.hasData &&
+                              snapshot.data?["name"] != null) {
+                            return Text(
+                              snapshot.data!["name"],
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 46, 125, 50),
+                              ),
+                            );
+                          } else {
+                            return const Text(
+                              "Guest",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 46, 125, 50),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -57,12 +93,12 @@ class Home extends StatelessWidget {
                         ),
                       );
                     },
-                    child: CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    child: const CircleAvatar(
+                      backgroundColor: Colors.white,
                       radius: 22,
                       child: Icon(
                         Icons.notifications,
-                        color: const Color.fromARGB(255, 46, 125, 50),
+                        color: Color.fromARGB(255, 46, 125, 50),
                       ),
                     ),
                   ),
@@ -70,95 +106,69 @@ class Home extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
+            // Quick buttons
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BusScreen()),
-                      );
-                    },
-                    child: quickButton(
-                      icon: FontAwesomeIcons.bus,
-                      label: "Track Bus",
-                      color: const Color.fromARGB(255, 56, 142, 60),
-                    ),
+                  quickNavButton(
+                    "Track Bus",
+                    FontAwesomeIcons.bus,
+                    const Color(0xFF388E3C),
+                    BusScreen(),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TicketBuyScreen(),
-                        ),
-                      );
-                    },
-                    child: quickButton(
-                      icon: FontAwesomeIcons.ticket,
-                      label: "Buy Ticket",
-                      color: const Color.fromARGB(255, 251, 140, 0),
-                    ),
+                  quickNavButton(
+                    "Buy Ticket",
+                    FontAwesomeIcons.ticket,
+                    const Color(0xFFFB8C00),
+                    TicketBuyScreen(),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NearestBusWidget(),
-                        ),
-                      );
-                    },
-                    child: quickButton(
-                      icon: FontAwesomeIcons.locationDot,
-                      label: "Nearest Bus",
-                      color: const Color.fromARGB(255, 30, 136, 229),
-                    ),
+                  quickNavButton(
+                    "Nearest Bus",
+                    FontAwesomeIcons.locationDot,
+                    const Color(0xFF1E88E5),
+                    NearestBusWidget(),
                   ),
                 ],
               ),
             ),
 
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
+            // What's New section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "What's New",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: const Color.fromARGB(255, 27, 94, 32),
+                  color: Color.fromARGB(255, 27, 94, 32),
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               height: 150,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
-                  colors: [
-                    const Color.fromARGB(255, 56, 142, 60),
-                    const Color.fromARGB(255, 142, 151, 255),
-                  ],
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF388E3C), Color(0xFF8E97FF)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
-                        "New eco-friendly buses launched on Route 5! ",
+                        "New eco-friendly buses launched on Route 5!",
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -174,6 +184,20 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget quickNavButton(
+    String label,
+    IconData icon,
+    Color color,
+    Widget screen,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
+      },
+      child: quickButton(icon: icon, label: label, color: color),
     );
   }
 }
