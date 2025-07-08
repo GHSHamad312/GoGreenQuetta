@@ -12,64 +12,148 @@ class BusScreen extends StatefulWidget {
 
 class _BusScreenState extends State<BusScreen> {
   int _selectedIndex = 0;
-  final tabs = ["Routes", "Capacity", "Nearest Bus"];
+
+  final List<String> tabs = ["Routes", "Capacity", "Nearest"];
+  final List<IconData> tabIcons = [
+    Icons.alt_route,
+    Icons.event_seat,
+    Icons.location_searching,
+  ];
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<RouteProvider>(context);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 249, 249, 249),
-      appBar: AppBar(
-        title: const Text("Buses"),
-        backgroundColor: const Color.fromARGB(255, 143, 255, 148),
+      backgroundColor: const Color(0xFFF9F9F9),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(24),
+                bottomRight: Radius.circular(24),
+              ),
+            ),
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24),
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.directions_bus, color: Colors.white),
+              SizedBox(width: 8),
+              Text(
+                "Buses",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+        ),
       ),
       body: Column(
         children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(
-                tabs.length,
-                (index) => Expanded(
-                  child: GestureDetector(
-                    onTap: () => setState(() => _selectedIndex = index),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: List.generate(tabs.length, (index) {
+                  final selected = _selectedIndex == index;
+                  return Expanded(
                     child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 400),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
                       decoration: BoxDecoration(
                         color:
-                            _selectedIndex == index
-                                ? const Color.fromARGB(255, 56, 142, 60)
+                            selected
+                                ? const Color(0xFF388E3C)
                                 : Colors.transparent,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(
-                        child: Text(
-                          tabs[index],
-                          style: TextStyle(
-                            color:
-                                _selectedIndex == index
-                                    ? Colors.white
-                                    : const Color.fromARGB(255, 97, 97, 97),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            letterSpacing: 0.5,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 4,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                tabIcons[index],
+                                color:
+                                    selected
+                                        ? Colors.white
+                                        : Colors.grey.shade700,
+                                size: 20,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                tabs[index],
+                                style: TextStyle(
+                                  color:
+                                      selected
+                                          ? Colors.white
+                                          : Colors.grey.shade700,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
             ),
           ),
-          Expanded(child: _getSelectedTabContent(provider)),
+          const SizedBox(height: 12),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: _getSelectedTabContent(provider),
+            ),
+          ),
         ],
       ),
     );
@@ -80,7 +164,7 @@ class _BusScreenState extends State<BusScreen> {
       case 0:
         return buildRoutes(provider);
       case 1:
-        return CapacityPage();
+        return const CapacityPage();
       case 2:
         return NearestBusWidget();
       default:

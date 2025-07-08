@@ -14,7 +14,6 @@ Widget buildRoutes(RouteProvider provider) {
       final route = provider.routes[index];
 
       return InkWell(
-        borderRadius: BorderRadius.circular(16),
         onTap: () {
           Navigator.push(
             context,
@@ -22,63 +21,101 @@ Widget buildRoutes(RouteProvider provider) {
           );
         },
         child: Container(
-          height: 100,
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
             boxShadow: const [
               BoxShadow(
-                color: Color.fromARGB(25, 0, 0, 0),
-                blurRadius: 10,
-                offset: Offset(0, 5),
+                color: Colors.black12,
+                blurRadius: 6,
+                offset: Offset(0, 4),
               ),
             ],
+            border: Border(
+              left: BorderSide(color: Colors.green.shade600, width: 6),
+            ),
           ),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 28,
-                backgroundColor: const Color.fromARGB(35, 67, 160, 72),
-                child: Icon(
-                  Icons.directions_bus,
-                  color: Colors.green.shade700,
-                  size: 28,
+              Container(
+                width: 90,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(40, 76, 175, 80),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                  ),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.directions_bus_filled,
+                    size: 36,
+                    color: Colors.green.shade700,
+                  ),
                 ),
               ),
-              const SizedBox(width: 20),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      route['busNumber'],
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: const Color.fromARGB(255, 46, 125, 50),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        route['routeName'],
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF2E7D32),
+                        ),
                       ),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      route['routeName'],
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 97, 97, 97),
-                        fontSize: 15,
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.confirmation_num,
+                            size: 16,
+                            color: Colors.grey,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            "Bus: ${route['busNumber']}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ],
+                      const SizedBox(height: 6),
+                      Row(
+                        children: const [
+                          Icon(Icons.schedule, size: 16, color: Colors.grey),
+                          SizedBox(width: 4),
+                          Text(
+                            "Every 15 mins", // Example static info
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black45,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 18,
-                color: const Color.fromARGB(255, 56, 142, 60),
+              const Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: Icon(
+                  Icons.chevron_right,
+                  size: 30,
+                  color: Color(0xFF388E3C),
+                ),
               ),
             ],
           ),

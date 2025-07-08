@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greenbus_frontend/Providers/busprovider.dart';
-import 'package:greenbus_frontend/screens/buses/visualcap.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
 
 class CapacityPage extends StatelessWidget {
   const CapacityPage({super.key});
@@ -14,85 +14,91 @@ class CapacityPage extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        return ListView.builder(
+        return ListView.separated(
           padding: const EdgeInsets.all(16),
           itemCount: provider.buses.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 20),
           itemBuilder: (context, index) {
             final bus = provider.buses[index];
+            final busNumber = bus['busnumber'] ?? 'Unknown';
+            final current = bus['currentCapacity'] ?? 0;
+            final total = bus['capacity'] ?? 0;
+            final percent = total > 0 ? (current / total) : 0.0;
 
-            return InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder:
-                        (context) => BusCapacityDetail(
-                          busNumber: bus['busnumber'],
-                          currentCapacity: bus['currentCapacity'],
-                          totalCapacity: bus['capacity'],
-                        ),
-                  ),
-                );
-              },
-              child: Container(
-                height: 100,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color.fromARGB(25, 0, 0, 0),
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              elevation: 6,
+              shadowColor: const Color.fromARGB(255, 76, 175, 79),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 24,
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 28,
-                      backgroundColor: const Color.fromARGB(35, 67, 160, 72),
-                      child: Icon(
-                        Icons.directions_bus_filled,
-                        color: Colors.green.shade700,
-                        size: 28,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            bus['busnumber'] ?? 'Unknown Bus',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Color.fromARGB(255, 46, 125, 50),
-                            ),
-                            maxLines: 1,
+                    _CircularCapacityIndicator(percent: percent),
+                    const SizedBox(width: 24),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "$busNumber",
+                          style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2E7D32),
                           ),
-                          const SizedBox(height: 6),
-                          Text(
-                            "Capacity: ${bus['currentCapacity'] ?? 0} / ${bus['capacity'] ?? 0}",
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 97, 97, 97),
-                              fontSize: 15,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "Capacity: $current / $total",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black54,
                           ),
-                        ],
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: const Color.fromARGB(255, 56, 142, 60),
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color:
+                                percent >= 0.75
+                                    ? const Color.fromARGB(52, 255, 82, 82)
+                                    : (percent >= 0.5
+                                        ? const Color.fromARGB(51, 255, 153, 0)
+                                        : const Color.fromARGB(
+                                          47,
+                                          76,
+                                          175,
+                                          79,
+                                        )),
+                          ),
+                          child: Text(
+                            percent >= 0.75
+                                ? "Almost Full"
+                                : (percent >= 0.5
+                                    ? "Moderate"
+                                    : "Plenty of Seats"),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13.5,
+                              color:
+                                  percent >= 0.75
+                                      ? Colors.redAccent
+                                      : (percent >= 0.5
+                                          ? Colors.orange
+                                          : Colors.green),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -103,4 +109,72 @@ class CapacityPage extends StatelessWidget {
       },
     );
   }
+}
+
+class _CircularCapacityIndicator extends StatelessWidget {
+  final double percent;
+
+  const _CircularCapacityIndicator({required this.percent});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: _CapacityPainter(percent),
+      child: SizedBox(
+        width: 80,
+        height: 80,
+        child: Center(
+          child: Text(
+            "${(percent * 100).round()}%",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CapacityPainter extends CustomPainter {
+  final double percent;
+
+  _CapacityPainter(this.percent);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final stroke = 6.0;
+    final radius = min(size.width, size.height) / 2 - stroke;
+    final center = Offset(size.width / 2, size.height / 2);
+
+    final backgroundPaint =
+        Paint()
+          ..strokeWidth = stroke
+          ..color = Colors.grey.shade300
+          ..style = PaintingStyle.stroke;
+
+    final progressPaint =
+        Paint()
+          ..strokeWidth = stroke
+          ..color =
+              percent >= 0.75
+                  ? Colors.redAccent
+                  : (percent >= 0.5 ? Colors.orange : Colors.green)
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round;
+
+    canvas.drawCircle(center, radius, backgroundPaint);
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -pi / 2,
+      2 * pi * percent,
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

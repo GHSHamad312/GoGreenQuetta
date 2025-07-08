@@ -9,7 +9,7 @@ import 'package:greenbus_frontend/screens/settings/change_password.dart';
 import 'package:greenbus_frontend/screens/settings/notifications.dart';
 import 'package:greenbus_frontend/screens/settings/profile_edit.dart';
 import 'package:greenbus_frontend/screens/settings/support.dart';
-import 'package:greenbus_frontend/screens/settings/theme.dart';
+import 'package:greenbus_frontend/screens/settings/themescreen.dart';
 import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
