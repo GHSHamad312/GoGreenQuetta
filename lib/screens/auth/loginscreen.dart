@@ -5,6 +5,7 @@ import 'package:greenbus_frontend/Providers/authprovider.dart';
 import 'package:greenbus_frontend/screens/app/navmain.dart';
 import 'package:greenbus_frontend/screens/auth/emailverify.dart';
 import 'package:greenbus_frontend/screens/auth/registerscreen.dart';
+import 'package:greenbus_frontend/screens/auth/resetemail.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
+  bool _oncooldown = false;
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
 
@@ -37,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(),
+              padding: EdgeInsets.symmetric(),
               child: Image.asset(
                 "assets/transparent/logoGreenQuetta.png",
                 width: 250,
@@ -135,16 +137,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20, left: 25),
-                      child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w600,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResetPasswordScreen(),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20, left: 25),
+                        child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),

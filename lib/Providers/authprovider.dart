@@ -60,3 +60,11 @@ class Authprovider with ChangeNotifier {
     }
   }
 }
+
+void sendreset(String email) async {
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  } catch (e) {
+    rethrow;
+  }
+}

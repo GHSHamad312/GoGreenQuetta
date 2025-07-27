@@ -96,13 +96,6 @@ Widget buildRoutes(RouteProvider provider) {
                         children: const [
                           Icon(Icons.schedule, size: 16, color: Colors.grey),
                           SizedBox(width: 4),
-                          Text(
-                            "Every 15 mins", // Example static info
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black45,
-                            ),
-                          ),
                         ],
                       ),
                     ],

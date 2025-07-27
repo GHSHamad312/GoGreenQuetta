@@ -11,63 +11,66 @@ class TicketBuyScreen extends StatelessWidget {
     final routeProvider = Provider.of<RouteProvider>(context);
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
-        child: AppBar(
-          automaticallyImplyLeading: true, // show back button if needed
-          elevation: 0,
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
-              ),
+      backgroundColor: const Color(0xFFF3F5F7),
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: true,
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-          ),
-          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(24),
               bottomRight: Radius.circular(24),
             ),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.confirmation_num, color: Colors.white),
-              SizedBox(width: 8),
-              Text(
-                "Buy Ticket",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 0.5,
-                ),
+        ),
+        centerTitle: true,
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.confirmation_num, color: Colors.white),
+            SizedBox(width: 8),
+            Text(
+              "Buy Ticket",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-            ],
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
+            ),
+          ],
         ),
       ),
-
       body:
           busProvider.isLoading || routeProvider.isLoading
               ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
                 itemCount: routeProvider.routes.length,
                 itemBuilder: (context, index) {
                   final route = routeProvider.routes[index];
+                  final String busNumber = route['busNumber'];
 
-                  return InkWell(
-                    borderRadius: BorderRadius.circular(16),
+                  final matchingBus = busProvider.buses.firstWhere(
+                    (bus) => bus['busnumber'] == busNumber,
+                    orElse: () => {},
+                  );
+
+                  int? availableSeats;
+                  if (matchingBus.isNotEmpty &&
+                      matchingBus.containsKey('capacity') &&
+                      matchingBus.containsKey('currentCapacity')) {
+                    final int capacity = matchingBus['capacity'];
+                    final int currentCapacity = matchingBus['currentCapacity'];
+                    availableSeats = capacity - currentCapacity;
+                  }
+
+                  return GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -77,89 +80,126 @@ class TicketBuyScreen extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      height: 100,
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      margin: const EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: const [
+                        color: Colors.white.withOpacity(0.95),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
                           BoxShadow(
-                            color: Color.fromARGB(25, 0, 0, 0),
-                            blurRadius: 10,
-                            offset: Offset(0, 5),
+                            color: Colors.black.withOpacity(0.08),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
                           ),
                         ],
                       ),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 28,
-                            backgroundColor: const Color.fromARGB(
-                              35,
-                              67,
-                              160,
-                              72,
-                            ),
-                            child: Icon(
-                              Icons.confirmation_num,
-                              color: Colors.green.shade700,
-                              size: 28,
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                Text(
-                                  route['routeName'],
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Color.fromARGB(255, 46, 125, 50),
+                                const CircleAvatar(
+                                  radius: 26,
+                                  backgroundColor: Color(0xFFE8F5E9),
+                                  child: Icon(
+                                    Icons.directions_bus,
+                                    size: 28,
+                                    color: Color(0xFF43A047),
                                   ),
-                                  maxLines: 1,
                                 ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  'Bus: ${route['busNumber']}',
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 97, 97, 97),
-                                    fontSize: 15,
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        route['routeName'],
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF2E7D32),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        '$busNumber',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.fade,
+                                ),
+                                const Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 18,
+                                  color: Colors.grey,
                                 ),
                               ],
                             ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (_) => TicketSummaryScreen(route: route),
+                            const SizedBox(height: 12),
+                            const Divider(),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Seats available",
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 13,
+                                  ),
                                 ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(
-                                255,
-                                67,
-                                160,
-                                71,
-                              ),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                                Text(
+                                  availableSeats != null
+                                      ? "$availableSeats"
+                                      : "N/A",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color(0xFF43A047),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 14),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (_) =>
+                                              TicketSummaryScreen(route: route),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF43A047),
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Book Now",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
                             ),
-                            child: const Text('Select'),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );

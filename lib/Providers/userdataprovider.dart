@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 class UserDataProvider with ChangeNotifier {
   Map<String, dynamic> userdata = {};
   bool datafetched = false;
-
   Future<void> savedata(String name, int phone) async {
     User user = FirebaseAuth.instance.currentUser!;
     FirebaseFirestore.instance.collection("Users").doc(user.uid).set({

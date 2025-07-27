@@ -172,7 +172,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         color: Colors.grey[600],
                       ),
                       onTap: () async {
-                        await authProvider.logout();
+                        await authProvider.logout;
                         if (mounted) {
                           Navigator.pushAndRemoveUntil(
                             context,

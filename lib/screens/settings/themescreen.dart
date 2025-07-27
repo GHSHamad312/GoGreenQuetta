@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:greenbus_frontend/Providers/theme_provider.dart';
 import 'package:greenbus_frontend/components/waveclipper.dart';
+import 'package:provider/provider.dart';
 
 class ThemeScreen extends StatefulWidget {
   const ThemeScreen({super.key});
@@ -14,6 +16,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context);
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Column(
@@ -51,7 +54,6 @@ class _ThemeScreenState extends State<ThemeScreen> {
             ],
           ),
 
-          // Theme Toggle
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Card(
@@ -74,6 +76,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                 ),
                 value: _isDarkTheme,
                 onChanged: (val) {
+                  theme.toggleTheme();
                   setState(() {
                     _isDarkTheme = val;
                   });

@@ -4,6 +4,7 @@ import 'package:greenbus_frontend/Providers/authprovider.dart';
 import 'package:greenbus_frontend/Providers/busprovider.dart';
 import 'package:greenbus_frontend/Providers/navigationprovider.dart';
 import 'package:greenbus_frontend/Providers/routeprovider.dart';
+import 'package:greenbus_frontend/Providers/theme_provider.dart';
 import 'package:greenbus_frontend/Providers/ticketprovider.dart';
 import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/screens/auth/authverify.dart';
@@ -22,6 +23,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => RouteProvider()..fetchRoutes()),
         ChangeNotifierProvider(create: (_) => BusProvider()),
         ChangeNotifierProvider(create: (_) => TicketProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: GoGreenQuetta(),
     ),
@@ -33,6 +35,13 @@ class GoGreenQuetta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "GoGreenQuetta", home: Authverify());
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return MaterialApp(
+      title: "GoGreenQuetta",
+      themeMode: themeProvider.currenttheme,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: Authverify(),
+    );
   }
 }
