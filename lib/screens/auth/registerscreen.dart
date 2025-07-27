@@ -23,7 +23,7 @@ class Registerscreen extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: const Color.fromARGB(255, 222, 255, 223),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -38,21 +38,24 @@ class Registerscreen extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.green,
+              backgroundColor: Theme.of(context).cardColor,
+              foregroundColor: Theme.of(context).colorScheme.primary,
               elevation: 3,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),
-            icon: Icon(Icons.arrow_back, color: Colors.green),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             label: Text(
               "Back",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Colors.green,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
@@ -78,7 +81,7 @@ class Registerscreen extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(bdr),
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                   ),
                   child: Column(
                     children: [
@@ -94,25 +97,27 @@ class Registerscreen extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "Name",
                             labelStyle: TextStyle(
-                              color: Colors.grey,
+                              color: Theme.of(context).hintColor,
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: const Color.fromARGB(56, 16, 255, 24),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.2),
                                 width: 2,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Theme.of(context).colorScheme.primary,
                                 width: 2,
                               ),
                             ),
-                            fillColor: Colors.white,
+                            fillColor: Theme.of(context).cardColor,
                             filled: true,
                           ),
                         ),
@@ -132,25 +137,27 @@ class Registerscreen extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "Phone",
                             labelStyle: TextStyle(
-                              color: Colors.grey,
+                              color: Theme.of(context).hintColor,
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: const Color.fromARGB(56, 16, 255, 24),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.2),
                                 width: 2,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Theme.of(context).colorScheme.primary,
                                 width: 2,
                               ),
                             ),
-                            fillColor: Colors.white,
+                            fillColor: Theme.of(context).cardColor,
                             filled: true,
                           ),
                         ),
@@ -166,25 +173,27 @@ class Registerscreen extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "Email",
                             labelStyle: TextStyle(
-                              color: Colors.grey,
+                              color: Theme.of(context).hintColor,
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: const Color.fromARGB(56, 16, 255, 24),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.2),
                                 width: 2,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Theme.of(context).colorScheme.primary,
                                 width: 2,
                               ),
                             ),
-                            fillColor: Colors.white,
+                            fillColor: Theme.of(context).cardColor,
                             filled: true,
                           ),
                         ),
@@ -197,25 +206,27 @@ class Registerscreen extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: "Password",
                             labelStyle: TextStyle(
-                              color: Colors.grey,
+                              color: Theme.of(context).hintColor,
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: const Color.fromARGB(56, 16, 255, 24),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.2),
                                 width: 2,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(bdr),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Theme.of(context).colorScheme.primary,
                                 width: 2,
                               ),
                             ),
-                            fillColor: Colors.white,
+                            fillColor: Theme.of(context).cardColor,
                             filled: true,
                           ),
                         ),
@@ -242,8 +253,10 @@ class Registerscreen extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(double.infinity, 50),
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.green,
+                            foregroundColor:
+                                Theme.of(context).colorScheme.onPrimary,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(bdr),
                             ),

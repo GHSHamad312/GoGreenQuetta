@@ -19,7 +19,7 @@ class BusCapacityDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('$busNumber Capacity'),
-        backgroundColor: Colors.green.shade700,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -60,10 +60,14 @@ class BusCapacityDetail extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color:
                                     isOccupied
-                                        ? Colors.green.shade700
-                                        : Colors.grey.shade300,
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(
+                                          context,
+                                        ).colorScheme.surfaceVariant,
                                 borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: Colors.black12),
+                                border: Border.all(
+                                  color: Theme.of(context).dividerColor,
+                                ),
                               ),
                             ),
                           );

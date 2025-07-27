@@ -24,21 +24,23 @@ class _BusScreenState extends State<BusScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<RouteProvider>(context);
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: colorScheme.background,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
         child: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
+                colors: [colorScheme.primary, colorScheme.secondary],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(24),
                 bottomRight: Radius.circular(24),
               ),
@@ -52,15 +54,14 @@ class _BusScreenState extends State<BusScreen> {
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.directions_bus, color: Colors.white),
-              SizedBox(width: 8),
+            children: [
+              Icon(Icons.directions_bus, color: colorScheme.onPrimary),
+              const SizedBox(width: 8),
               Text(
                 "Buses",
-                style: TextStyle(
-                  fontSize: 22,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
                   letterSpacing: 0.5,
                 ),
               ),
@@ -78,13 +79,13 @@ class _BusScreenState extends State<BusScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorScheme.surface,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Colors.black12,
+                    color: colorScheme.shadow.withOpacity(0.08),
                     blurRadius: 4,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -97,9 +98,7 @@ class _BusScreenState extends State<BusScreen> {
                       curve: Curves.easeInOut,
                       decoration: BoxDecoration(
                         color:
-                            selected
-                                ? const Color(0xFF388E3C)
-                                : Colors.transparent,
+                            selected ? colorScheme.primary : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: InkWell(
@@ -121,18 +120,18 @@ class _BusScreenState extends State<BusScreen> {
                                 tabIcons[index],
                                 color:
                                     selected
-                                        ? Colors.white
-                                        : Colors.grey.shade700,
+                                        ? colorScheme.onPrimary
+                                        : colorScheme.onSurface,
                                 size: 20,
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 tabs[index],
-                                style: TextStyle(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color:
                                       selected
-                                          ? Colors.white
-                                          : Colors.grey.shade700,
+                                          ? colorScheme.onPrimary
+                                          : colorScheme.onSurface,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14,
                                 ),

@@ -31,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(116, 169, 255, 172),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(bdr),
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                 ),
                 child: Column(
                   children: [
@@ -70,26 +70,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: emailcontroller,
                         decoration: InputDecoration(
                           labelText: "Email",
-                          labelStyle: const TextStyle(
-                            color: Colors.grey,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).hintColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 20,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(56, 16, 255, 24),
+                            borderSide: BorderSide(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.2),
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: const BorderSide(
-                              color: Colors.green,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
                               width: 2,
                             ),
                           ),
-                          fillColor: Colors.white,
+                          fillColor: Theme.of(context).cardColor,
                           filled: true,
                         ),
                       ),
@@ -113,26 +115,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           labelText: "Password",
-                          labelStyle: const TextStyle(
-                            color: Colors.grey,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).hintColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 20,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(56, 16, 255, 24),
+                            borderSide: BorderSide(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.2),
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: const BorderSide(
-                              color: Colors.green,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
                               width: 2,
                             ),
                           ),
-                          fillColor: Colors.white,
+                          fillColor: Theme.of(context).cardColor,
                           filled: true,
                         ),
                       ),
@@ -154,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             "Forgot Password?",
                             style: TextStyle(
                               fontSize: 15,
-                              color: Colors.blue,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -206,8 +210,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 50),
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.green,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(bdr),
                           ),
@@ -232,8 +238,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
-                  foregroundColor: Colors.green,
-                  backgroundColor: Colors.white,
+                  foregroundColor: Theme.of(context).colorScheme.primary,
+                  backgroundColor: Theme.of(context).cardColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(bdr),
                   ),

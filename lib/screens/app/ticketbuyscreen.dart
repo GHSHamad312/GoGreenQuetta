@@ -3,6 +3,7 @@ import 'package:greenbus_frontend/Providers/busprovider.dart';
 import 'package:greenbus_frontend/Providers/routeprovider.dart';
 import 'package:greenbus_frontend/screens/tickets/ticketsummar.dart';
 import 'package:provider/provider.dart';
+import 'package:greenbus_frontend/theme.dart';
 
 class TicketBuyScreen extends StatelessWidget {
   @override
@@ -11,36 +12,42 @@ class TicketBuyScreen extends StatelessWidget {
     final routeProvider = Provider.of<RouteProvider>(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F5F7),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: true,
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(24),
               bottomRight: Radius.circular(24),
             ),
           ),
         ),
         centerTitle: true,
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.confirmation_num, color: Colors.white),
-            SizedBox(width: 8),
+            Icon(
+              Icons.confirmation_num,
+              color: Theme.of(context).appBarTheme.foregroundColor,
+            ),
+            const SizedBox(width: 8),
             Text(
               "Buy Ticket",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Theme.of(context).appBarTheme.foregroundColor,
               ),
             ),
           ],
@@ -82,11 +89,13 @@ class TicketBuyScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.95),
+                        color: Theme.of(context).cardColor.withOpacity(0.95),
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.08),
+                            color: Theme.of(
+                              context,
+                            ).shadowColor.withOpacity(0.08),
                             blurRadius: 12,
                             offset: const Offset(0, 6),
                           ),
@@ -99,13 +108,16 @@ class TicketBuyScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                const CircleAvatar(
+                                CircleAvatar(
                                   radius: 26,
-                                  backgroundColor: Color(0xFFE8F5E9),
+                                  backgroundColor: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary.withOpacity(0.15),
                                   child: Icon(
                                     Icons.directions_bus,
                                     size: 28,
-                                    color: Color(0xFF43A047),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
                                 const SizedBox(width: 16),
@@ -116,27 +128,36 @@ class TicketBuyScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         route['routeName'],
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
-                                          color: Color(0xFF2E7D32),
+                                          color:
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
                                         ),
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
                                         '$busNumber',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 14,
-                                          color: Colors.black54,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.color
+                                              ?.withOpacity(0.6),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                const Icon(
+                                Icon(
                                   Icons.arrow_forward_ios_rounded,
                                   size: 18,
-                                  color: Colors.grey,
+                                  color: Theme.of(
+                                    context,
+                                  ).iconTheme.color?.withOpacity(0.5),
                                 ),
                               ],
                             ),
@@ -146,10 +167,14 @@ class TicketBuyScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   "Seats available",
                                   style: TextStyle(
-                                    color: Colors.black54,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.6),
                                     fontSize: 13,
                                   ),
                                 ),
@@ -157,10 +182,11 @@ class TicketBuyScreen extends StatelessWidget {
                                   availableSeats != null
                                       ? "$availableSeats"
                                       : "N/A",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Color(0xFF43A047),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
                               ],
@@ -180,8 +206,10 @@ class TicketBuyScreen extends StatelessWidget {
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF43A047),
-                                  foregroundColor: Colors.white,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  foregroundColor:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 14,
                                   ),

@@ -5,14 +5,17 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Stack(
             children: [
               ClipPath(
                 clipper: WaveClipper(),
-                child: Container(height: 180, color: Colors.green.shade400),
+                child: Container(
+                  height: 180,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               Positioned(
                 top: 50,
@@ -21,7 +24,10 @@ class AboutScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Text(
@@ -29,7 +35,7 @@ class AboutScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],
@@ -47,11 +53,13 @@ class AboutScreen extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).cardColor,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.green.shade200.withOpacity(0.4),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withOpacity(0.2),
                           blurRadius: 12,
                           offset: Offset(0, 6),
                         ),
@@ -61,7 +69,7 @@ class AboutScreen extends StatelessWidget {
                     child: Icon(
                       Icons.directions_bus_filled,
                       size: 100,
-                      color: Colors.green.shade400,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   SizedBox(height: 20),
@@ -70,7 +78,7 @@ class AboutScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Colors.green.shade800,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   SizedBox(height: 6),
@@ -78,7 +86,7 @@ class AboutScreen extends StatelessWidget {
                     "Version 1.0.0",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.grey[700],
+                      color: Theme.of(context).hintColor,
                       fontStyle: FontStyle.italic,
                     ),
                   ),
@@ -88,14 +96,17 @@ class AboutScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       height: 1.5,
-                      color: Colors.grey[800],
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                     textAlign: TextAlign.justify,
                   ),
                   SizedBox(height: 40),
                   Text(
                     "© 2025 Green Bus Inc.",
-                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor,
+                    ),
                   ),
                 ],
               ),

@@ -15,13 +15,16 @@ class RouteDetailScreen extends StatelessWidget {
     final timings = route['timings'] as List;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.green.shade800, Colors.green.shade500],
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -38,18 +41,18 @@ class RouteDetailScreen extends StatelessWidget {
                   // Back button
                   GestureDetector(
                     onTap: () => Navigator.of(context).pop(),
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 22,
                     ),
                   ),
                   const SizedBox(width: 16),
 
                   // Bus icon
-                  const Icon(
+                  Icon(
                     Icons.directions_bus_filled,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     size: 26,
                   ),
                   const SizedBox(width: 12),
@@ -63,18 +66,20 @@ class RouteDetailScreen extends StatelessWidget {
                       children: [
                         Text(
                           '${route['busNumber']}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           route['routeName'] ?? '',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 14,
-                            color: Colors.white70,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onPrimary.withOpacity(0.7),
                           ),
                         ),
                       ],
@@ -115,9 +120,10 @@ class RouteDetailScreen extends StatelessWidget {
                               width: 40,
                               height: 40,
                               builder:
-                                  (_) => const Icon(
+                                  (_) => Icon(
                                     Icons.location_on,
-                                    color: Color(0xFF43A047),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     size: 36,
                                   ),
                             );
@@ -138,7 +144,7 @@ class RouteDetailScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -151,18 +157,21 @@ class RouteDetailScreen extends StatelessWidget {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.access_time_rounded,
-                            color: Colors.green,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
                               stopNames[index],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black87,
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge?.color,
                               ),
                             ),
                           ),
@@ -172,15 +181,17 @@ class RouteDetailScreen extends StatelessWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFE8F5E9),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.08),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
                               timings[index].toString(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 14.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF2E7D32),
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                           ),

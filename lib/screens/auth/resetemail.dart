@@ -48,8 +48,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(116, 169, 255, 172),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -66,18 +66,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     horizontal: 20,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(bdr),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
+                      Text(
                         "Reset Password",
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -86,26 +86,28 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         controller: emailController,
                         decoration: InputDecoration(
                           labelText: "Enter your email",
-                          labelStyle: const TextStyle(
-                            color: Colors.grey,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).hintColor,
                             fontWeight: FontWeight.w400,
                             fontSize: 18,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(56, 16, 255, 24),
+                            borderSide: BorderSide(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.2),
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(bdr),
-                            borderSide: const BorderSide(
-                              color: Colors.green,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
                               width: 2,
                             ),
                           ),
-                          fillColor: Colors.white,
+                          fillColor: Theme.of(context).cardColor,
                           filled: true,
                         ),
                       ),
@@ -142,8 +144,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                 },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 50),
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(bdr),
                           ),
@@ -152,8 +156,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             _onCooldown
                                 ? Text("Wait $_cooldownSeconds sec")
                                 : _isSending
-                                ? const CircularProgressIndicator(
-                                  color: Colors.white,
+                                ? CircularProgressIndicator(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                 )
                                 : const Text(
                                   "Send Reset Link",
@@ -170,7 +175,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 child: TextButton(
                   onPressed: () => Navigator.pop(context),
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.green,
+                    foregroundColor: Theme.of(context).colorScheme.primary,
                     textStyle: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -181,9 +186,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
-                      side: const BorderSide(color: Colors.green, width: 1.5),
+                      side: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 1.5,
+                      ),
                     ),
-                    backgroundColor: const Color.fromARGB(20, 76, 175, 80),
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary.withOpacity(0.08),
                   ),
                   child: const Text("Back to Login"),
                 ),

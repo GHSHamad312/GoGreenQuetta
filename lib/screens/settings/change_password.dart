@@ -42,14 +42,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Stack(
             children: [
               ClipPath(
                 clipper: WaveClipper(),
-                child: Container(height: 180, color: Colors.green.shade400),
+                child: Container(
+                  height: 180,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               Positioned(
                 top: 50,
@@ -58,7 +61,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Text(
@@ -66,7 +72,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],
@@ -88,7 +94,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         prefixIcon: Icon(FontAwesomeIcons.lock),
                         labelText: "New Password",
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Theme.of(context).cardColor,
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscurePassword
@@ -117,8 +123,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ElevatedButton(
                       onPressed: _changePassword,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[600],
-                        foregroundColor: Colors.white,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                         minimumSize: Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),

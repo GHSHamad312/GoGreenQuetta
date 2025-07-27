@@ -128,7 +128,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F8F2),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -137,10 +137,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       body: Center(
         child:
             _isVerifying
-                ? const Column(
+                ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(color: Colors.green),
+                    CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     SizedBox(height: 20),
                     Text("Verifying email...", style: TextStyle(fontSize: 18)),
                   ],
@@ -149,11 +151,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   padding: const EdgeInsets.all(30),
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(16),
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black12,
+                        color: Theme.of(context).dividerColor,
                         blurRadius: 8,
                         offset: Offset(0, 4),
                       ),
@@ -162,10 +164,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.mark_email_read_outlined,
                         size: 72,
-                        color: Colors.green,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       const SizedBox(height: 20),
                       const Text(
@@ -185,7 +187,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       Text(
                         widget.email,
                         style: TextStyle(
-                          color: Colors.green[800],
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.w600,
                         ),
                         textAlign: TextAlign.center,
@@ -193,22 +195,26 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       const SizedBox(height: 25),
                       Text(
                         "Please verify your email to continue.",
-                        style: TextStyle(color: Colors.grey[700]),
+                        style: TextStyle(color: Theme.of(context).hintColor),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 30),
                       _isCooldown
                           ? Text(
                             "You can resend in $_resendCooldown seconds",
-                            style: TextStyle(color: Colors.grey[600]),
+                            style: TextStyle(
+                              color: Theme.of(context).hintColor,
+                            ),
                           )
                           : ElevatedButton.icon(
                             onPressed: _resendVerification,
                             icon: const Icon(Icons.refresh),
                             label: const Text("Resend Email"),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              foregroundColor: Colors.white,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.onPrimary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),

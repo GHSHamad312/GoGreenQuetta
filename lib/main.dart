@@ -8,6 +8,7 @@ import 'package:greenbus_frontend/Providers/theme_provider.dart';
 import 'package:greenbus_frontend/Providers/ticketprovider.dart';
 import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/screens/auth/authverify.dart';
+import 'package:greenbus_frontend/theme.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -39,8 +40,8 @@ class GoGreenQuetta extends StatelessWidget {
     return MaterialApp(
       title: "GoGreenQuetta",
       themeMode: themeProvider.currenttheme,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       home: Authverify(),
     );
   }

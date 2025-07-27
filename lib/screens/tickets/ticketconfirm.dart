@@ -65,7 +65,7 @@ class _TicketConfirmationScreenState extends State<TicketConfirmationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green.shade50,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -80,7 +80,7 @@ class _TicketConfirmationScreenState extends State<TicketConfirmationScreen>
                         child: Icon(
                           Icons.check_circle_rounded,
                           size: 110,
-                          color: Colors.green.shade600,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SizedBox(height: 30),
@@ -89,7 +89,7 @@ class _TicketConfirmationScreenState extends State<TicketConfirmationScreen>
                         style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green.shade700,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -98,7 +98,7 @@ class _TicketConfirmationScreenState extends State<TicketConfirmationScreen>
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.grey.shade800,
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
                         ),
                       ),
                       const SizedBox(height: 40),
@@ -109,8 +109,10 @@ class _TicketConfirmationScreenState extends State<TicketConfirmationScreen>
                         icon: const Icon(Icons.home_outlined),
                         label: const Text('Back to Home'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green.shade600,
-                          foregroundColor: Colors.white,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 32,
                             vertical: 14,

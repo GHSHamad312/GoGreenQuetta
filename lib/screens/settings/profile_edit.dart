@@ -28,7 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final userProvider = Provider.of<UserDataProvider>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Stack(
@@ -37,7 +37,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 clipper: WaveClipper(),
                 child: Container(
                   height: 180,
-                  decoration: BoxDecoration(color: Colors.green.shade400),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ),
               Positioned(
@@ -47,7 +49,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Text(
@@ -55,7 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],
@@ -78,7 +83,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         prefixIcon: Icon(FontAwesomeIcons.user),
                         labelText: "Full Name",
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Theme.of(context).cardColor,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide.none,
@@ -100,7 +105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         prefixIcon: Icon(FontAwesomeIcons.phone),
                         labelText: "Phone Number",
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Theme.of(context).cardColor,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide.none,
@@ -135,14 +140,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[600],
-                        foregroundColor: Colors.white,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                         minimumSize: Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
                         elevation: 4,
-                        shadowColor: Colors.greenAccent,
+                        shadowColor: Theme.of(context).colorScheme.secondary,
                       ),
                       child: Text(
                         "Save Changes",

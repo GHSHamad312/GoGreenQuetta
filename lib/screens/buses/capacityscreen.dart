@@ -30,7 +30,7 @@ class CapacityPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
               ),
               elevation: 6,
-              shadowColor: const Color.fromARGB(255, 76, 175, 79),
+              shadowColor: Theme.of(context).colorScheme.primary,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
@@ -46,18 +46,20 @@ class CapacityPage extends StatelessWidget {
                       children: [
                         Text(
                           "$busNumber",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF2E7D32),
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           "Capacity: $current / $total",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
-                            color: Colors.black54,
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color?.withOpacity(0.6),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -70,15 +72,15 @@ class CapacityPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             color:
                                 percent >= 0.75
-                                    ? const Color.fromARGB(52, 255, 82, 82)
+                                    ? Theme.of(
+                                      context,
+                                    ).colorScheme.error.withOpacity(0.2)
                                     : (percent >= 0.5
-                                        ? const Color.fromARGB(51, 255, 153, 0)
-                                        : const Color.fromARGB(
-                                          47,
-                                          76,
-                                          175,
-                                          79,
-                                        )),
+                                        ? Theme.of(
+                                          context,
+                                        ).colorScheme.secondary.withOpacity(0.2)
+                                        : Theme.of(context).colorScheme.primary
+                                            .withOpacity(0.18)),
                           ),
                           child: Text(
                             percent >= 0.75
@@ -91,10 +93,14 @@ class CapacityPage extends StatelessWidget {
                               fontSize: 13.5,
                               color:
                                   percent >= 0.75
-                                      ? Colors.redAccent
+                                      ? Theme.of(context).colorScheme.error
                                       : (percent >= 0.5
-                                          ? Colors.orange
-                                          : Colors.green),
+                                          ? Theme.of(
+                                            context,
+                                          ).colorScheme.secondary
+                                          : Theme.of(
+                                            context,
+                                          ).colorScheme.primary),
                             ),
                           ),
                         ),
@@ -119,17 +125,17 @@ class _CircularCapacityIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _CapacityPainter(percent),
+      painter: _CapacityPainter(percent, context),
       child: SizedBox(
         width: 80,
         height: 80,
         child: Center(
           child: Text(
             "${(percent * 100).round()}%",
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 15,
-              color: Colors.black87,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
         ),
@@ -140,8 +146,9 @@ class _CircularCapacityIndicator extends StatelessWidget {
 
 class _CapacityPainter extends CustomPainter {
   final double percent;
+  final BuildContext context;
 
-  _CapacityPainter(this.percent);
+  _CapacityPainter(this.percent, this.context);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -152,7 +159,7 @@ class _CapacityPainter extends CustomPainter {
     final backgroundPaint =
         Paint()
           ..strokeWidth = stroke
-          ..color = Colors.grey.shade300
+          ..color = Theme.of(context).colorScheme.surfaceVariant
           ..style = PaintingStyle.stroke;
 
     final progressPaint =
@@ -160,8 +167,10 @@ class _CapacityPainter extends CustomPainter {
           ..strokeWidth = stroke
           ..color =
               percent >= 0.75
-                  ? Colors.redAccent
-                  : (percent >= 0.5 ? Colors.orange : Colors.green)
+                  ? Theme.of(context).colorScheme.error
+                  : (percent >= 0.5
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context).colorScheme.primary)
           ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round;
 

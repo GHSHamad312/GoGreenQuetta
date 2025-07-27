@@ -12,13 +12,11 @@ class ThemeScreen extends StatefulWidget {
 }
 
 class _ThemeScreenState extends State<ThemeScreen> {
-  bool _isDarkTheme = false;
-
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Stack(
@@ -27,7 +25,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                 clipper: WaveClipper(),
                 child: Container(
                   height: 180,
-                  color: const Color.fromARGB(255, 102, 187, 106),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               Positioned(
@@ -37,7 +35,10 @@ class _ThemeScreenState extends State<ThemeScreen> {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Text(
@@ -45,7 +46,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],
@@ -71,18 +72,16 @@ class _ThemeScreenState extends State<ThemeScreen> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 secondary: Icon(
-                  _isDarkTheme ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
-                  color: const Color.fromARGB(255, 0, 121, 107),
+                  theme.isDark ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
-                value: _isDarkTheme,
+                value: theme.isDark,
                 onChanged: (val) {
                   theme.toggleTheme();
-                  setState(() {
-                    _isDarkTheme = val;
-                  });
                 },
-                activeColor: Colors.green,
-                inactiveTrackColor: Colors.grey[300],
+                activeColor: Theme.of(context).colorScheme.primary,
+                inactiveTrackColor:
+                    Theme.of(context).colorScheme.surfaceVariant,
               ),
             ),
           ),

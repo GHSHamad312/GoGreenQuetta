@@ -181,18 +181,27 @@ class _NearestBusWidgetState extends State<NearestBusWidget> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                color: Colors.white,
-                child: const Padding(
-                  padding: EdgeInsets.all(20),
+                color: Theme.of(context).cardColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.search, color: Colors.grey, size: 40),
+                      Icon(
+                        Icons.search,
+                        color: Theme.of(context).hintColor,
+                        size: 40,
+                      ),
                       SizedBox(height: 12),
                       Text(
                         "Tap the button below to find your nearest bus stop.",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, color: Colors.black54),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.color?.withOpacity(0.6),
+                        ),
                       ),
                     ],
                   ),
@@ -218,9 +227,10 @@ class _NearestBusWidgetState extends State<NearestBusWidget> {
                             width: 40,
                             height: 40,
                             builder:
-                                (_) => const Icon(
+                                (_) => Icon(
                                   Icons.person_pin_circle,
-                                  color: Colors.blue,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   size: 36,
                                 ),
                           ),
@@ -229,9 +239,9 @@ class _NearestBusWidgetState extends State<NearestBusWidget> {
                             width: 40,
                             height: 40,
                             builder:
-                                (_) => const Icon(
+                                (_) => Icon(
                                   Icons.location_on,
-                                  color: Colors.green,
+                                  color: Theme.of(context).colorScheme.primary,
                                   size: 36,
                                 ),
                           ),
@@ -242,7 +252,7 @@ class _NearestBusWidgetState extends State<NearestBusWidget> {
                           Polyline(
                             points: [userLocation!, stopLocation!],
                             strokeWidth: 4,
-                            color: Colors.green.shade700,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ],
                       ),
@@ -271,9 +281,9 @@ class InfoRow extends StatelessWidget {
         children: [
           Text(
             "$title:",
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.w600,
-              color: Colors.black87,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
               fontSize: 15,
             ),
           ),
@@ -281,7 +291,12 @@ class InfoRow extends StatelessWidget {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(fontSize: 15, color: Colors.black54),
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.color?.withOpacity(0.6),
+              ),
               overflow: TextOverflow.ellipsis,
             ),
           ),

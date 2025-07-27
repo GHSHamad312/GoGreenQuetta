@@ -33,8 +33,10 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<Authprovider>(context, listen: false);
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: colorScheme.background,
       body: Column(
         children: [
           FutureBuilder<Map<String, dynamic>>(
@@ -55,17 +57,17 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Container(
                   width: double.infinity,
                   height: 240,
-                  color: Colors.green.shade400,
+                  color: colorScheme.primary,
                   padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
                   child: Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 40,
-                        backgroundColor: Color.fromARGB(255, 46, 125, 50),
+                        backgroundColor: colorScheme.secondary,
                         child: Icon(
                           Icons.person,
                           size: 40,
-                          color: Colors.white,
+                          color: colorScheme.onSecondary,
                         ),
                       ),
                       const SizedBox(width: 20),
@@ -76,18 +78,18 @@ class _AccountScreenState extends State<AccountScreen> {
                           children: [
                             Text(
                               name,
-                              style: const TextStyle(
+                              style: theme.textTheme.titleLarge?.copyWith(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: colorScheme.onPrimary,
                               ),
                             ),
                             const SizedBox(height: 5),
                             Text(
                               email,
-                              style: const TextStyle(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                 fontSize: 15,
-                                color: Colors.white70,
+                                color: colorScheme.onPrimary.withOpacity(0.7),
                               ),
                             ),
                           ],
@@ -154,22 +156,22 @@ class _AccountScreenState extends State<AccountScreen> {
                         horizontal: 20,
                         vertical: 10,
                       ),
-                      leading: const Icon(
+                      leading: Icon(
                         FontAwesomeIcons.arrowRightFromBracket,
-                        color: Colors.redAccent,
+                        color: colorScheme.error,
                       ),
-                      title: const Text(
+                      title: Text(
                         "Logout",
-                        style: TextStyle(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Colors.redAccent,
+                          color: colorScheme.error,
                         ),
                       ),
                       trailing: Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
-                        color: Colors.grey[600],
+                        color: colorScheme.onSurface.withOpacity(0.7),
                       ),
                       onTap: () async {
                         await authProvider.logout;
@@ -202,6 +204,8 @@ class _AccountScreenState extends State<AccountScreen> {
     Widget screen, {
     VoidCallback? onTap,
   }) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6),
       child: Card(
@@ -212,7 +216,7 @@ class _AccountScreenState extends State<AccountScreen> {
             horizontal: 20,
             vertical: 10,
           ),
-          leading: Icon(icon, color: Colors.green.shade700),
+          leading: Icon(icon, color: colorScheme.primary),
           title: Text(
             title,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -220,7 +224,7 @@ class _AccountScreenState extends State<AccountScreen> {
           trailing: Icon(
             Icons.arrow_forward_ios,
             size: 16,
-            color: Colors.grey[600],
+            color: colorScheme.onSurface.withOpacity(0.7),
           ),
           onTap:
               onTap ??

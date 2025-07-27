@@ -14,7 +14,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           // Wave Header (same style)
@@ -22,7 +22,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             children: [
               ClipPath(
                 clipper: WaveClipper(),
-                child: Container(height: 180, color: Colors.green.shade400),
+                child: Container(
+                  height: 180,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               Positioned(
                 top: 50,
@@ -31,7 +34,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Text(
@@ -39,7 +45,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],
@@ -85,15 +91,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: SwitchListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        secondary: Icon(icon, color: Colors.teal[700]),
+        secondary: Icon(icon, color: Theme.of(context).colorScheme.secondary),
         title: Text(
           title,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
         value: value,
         onChanged: onChanged,
-        activeColor: Colors.green,
-        inactiveTrackColor: Colors.grey[300],
+        activeColor: Theme.of(context).colorScheme.primary,
+        inactiveTrackColor: Theme.of(context).colorScheme.surfaceVariant,
       ),
     );
   }

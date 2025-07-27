@@ -1,3 +1,5 @@
+import 'package:greenbus_frontend/Providers/routeprovider.dart';
+import 'package:greenbus_frontend/screens/buses/routeinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:greenbus_frontend/Providers/routeprovider.dart';
 import 'package:greenbus_frontend/screens/buses/routeinfo.dart';
@@ -23,17 +25,20 @@ Widget buildRoutes(RouteProvider provider) {
         child: Container(
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Colors.black12,
+                color: Theme.of(context).shadowColor.withOpacity(0.08),
                 blurRadius: 6,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
               ),
             ],
             border: Border(
-              left: BorderSide(color: Colors.green.shade600, width: 6),
+              left: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 6,
+              ),
             ),
           ),
           child: Row(
@@ -42,7 +47,9 @@ Widget buildRoutes(RouteProvider provider) {
                 width: 90,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(40, 76, 175, 80),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withOpacity(0.08),
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10),
@@ -52,7 +59,7 @@ Widget buildRoutes(RouteProvider provider) {
                   child: Icon(
                     Icons.directions_bus_filled,
                     size: 36,
-                    color: Colors.green.shade700,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),
@@ -67,47 +74,57 @@ Widget buildRoutes(RouteProvider provider) {
                     children: [
                       Text(
                         route['routeName'],
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF2E7D32),
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.confirmation_num,
                             size: 16,
-                            color: Colors.grey,
+                            color: Theme.of(
+                              context,
+                            ).iconTheme.color?.withOpacity(0.5),
                           ),
                           const SizedBox(width: 4),
                           Text(
                             "Bus: ${route['busNumber']}",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
-                              color: Colors.black54,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium?.color?.withOpacity(0.6),
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 6),
                       Row(
-                        children: const [
-                          Icon(Icons.schedule, size: 16, color: Colors.grey),
-                          SizedBox(width: 4),
+                        children: [
+                          Icon(
+                            Icons.schedule,
+                            size: 16,
+                            color: Theme.of(
+                              context,
+                            ).iconTheme.color?.withOpacity(0.5),
+                          ),
+                          const SizedBox(width: 4),
                         ],
                       ),
                     ],
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(right: 12),
+              Padding(
+                padding: const EdgeInsets.only(right: 12),
                 child: Icon(
                   Icons.chevron_right,
                   size: 30,
-                  color: Color(0xFF388E3C),
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ],

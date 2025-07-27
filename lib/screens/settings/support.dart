@@ -5,14 +5,17 @@ class SupportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Stack(
             children: [
               ClipPath(
                 clipper: WaveClipper(),
-                child: Container(height: 180, color: Colors.green.shade400),
+                child: Container(
+                  height: 180,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               Positioned(
                 top: 50,
@@ -21,7 +24,10 @@ class SupportScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                     SizedBox(width: 10),
                     Text(
@@ -29,7 +35,7 @@ class SupportScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         letterSpacing: 1.2,
                       ),
                     ),
@@ -45,7 +51,10 @@ class SupportScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 30),
               children: [
                 ListTile(
-                  leading: Icon(Icons.email, color: Colors.green.shade600),
+                  leading: Icon(
+                    Icons.email,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   title: Text(
                     "ghshamad314@gmail.com",
                     style: TextStyle(fontSize: 16),
@@ -53,14 +62,17 @@ class SupportScreen extends StatelessWidget {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.phone, color: Colors.green.shade600),
+                  leading: Icon(
+                    Icons.phone,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   title: Text("+92 3156038384", style: TextStyle(fontSize: 16)),
                 ),
                 Divider(),
                 ListTile(
                   leading: Icon(
                     Icons.question_answer,
-                    color: Colors.green.shade600,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   title: Text(
                     "Frequently Asked Questions",
@@ -69,7 +81,7 @@ class SupportScreen extends StatelessWidget {
                   trailing: Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
-                    color: Colors.grey[600],
+                    color: Theme.of(context).hintColor,
                   ),
                   onTap: () {},
                 ),

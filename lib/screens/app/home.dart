@@ -63,20 +63,20 @@ class _HomeState extends State<Home> {
                           } else if (snapshot.hasData &&
                               snapshot.data?["name"] != null) {
                             return Text(
-                              snapshot.data!["name"],
-                              style: const TextStyle(
+                              snapshot.data!['name'],
+                              style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 46, 125, 50),
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             );
                           } else {
-                            return const Text(
+                            return Text(
                               "Guest",
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 46, 125, 50),
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             );
                           }
@@ -93,12 +93,12 @@ class _HomeState extends State<Home> {
                         ),
                       );
                     },
-                    child: const CircleAvatar(
-                      backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).cardColor,
                       radius: 22,
                       child: Icon(
                         Icons.notifications,
-                        color: Color.fromARGB(255, 46, 125, 50),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
@@ -117,19 +117,19 @@ class _HomeState extends State<Home> {
                   quickNavButton(
                     "Track Bus",
                     FontAwesomeIcons.bus,
-                    const Color(0xFF388E3C),
+                    Theme.of(context).colorScheme.primary,
                     BusScreen(),
                   ),
                   quickNavButton(
                     "Buy Ticket",
                     FontAwesomeIcons.ticket,
-                    const Color(0xFFFB8C00),
+                    Theme.of(context).colorScheme.secondary,
                     TicketBuyScreen(),
                   ),
                   quickNavButton(
                     "Nearest Bus",
                     FontAwesomeIcons.locationDot,
-                    const Color(0xFF1E88E5),
+                    Theme.of(context).colorScheme.tertiary,
                     NearestBusWidget(),
                   ),
                 ],
@@ -143,10 +143,10 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "What's New",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Color.fromARGB(255, 27, 94, 32),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ),
@@ -156,14 +156,17 @@ class _HomeState extends State<Home> {
               height: 150,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF388E3C), Color(0xFF8E97FF)],
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.secondary,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(16.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -171,12 +174,16 @@ class _HomeState extends State<Home> {
                         "New eco-friendly buses launched on Route 5!",
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Icon(Icons.eco, color: Colors.white, size: 40),
+                    Icon(
+                      Icons.eco,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      size: 40,
+                    ),
                   ],
                 ),
               ),

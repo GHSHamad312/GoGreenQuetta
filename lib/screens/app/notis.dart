@@ -8,7 +8,7 @@ class NotificationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Notifications"),
-        backgroundColor: const Color.fromARGB(255, 56, 142, 60),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Center(child: Text("No new notifications right now.")),
     );

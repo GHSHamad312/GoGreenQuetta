@@ -30,22 +30,22 @@ class HomeMain extends StatelessWidget {
             SalomonBottomBarItem(
               icon: Icon(Icons.home),
               title: Text("Home"),
-              selectedColor: Colors.green,
+              selectedColor: Theme.of(context).colorScheme.primary,
             ),
             SalomonBottomBarItem(
               icon: Icon(Icons.directions_bus_filled),
               title: Text("Buses"),
-              selectedColor: Colors.green,
+              selectedColor: Theme.of(context).colorScheme.primary,
             ),
             SalomonBottomBarItem(
               icon: Icon(Icons.attach_money),
               title: Text("Buy"),
-              selectedColor: Colors.green,
+              selectedColor: Theme.of(context).colorScheme.primary,
             ),
             SalomonBottomBarItem(
               icon: Icon(Icons.settings),
               title: Text("Settings"),
-              selectedColor: Colors.green,
+              selectedColor: Theme.of(context).colorScheme.primary,
             ),
           ],
         ),

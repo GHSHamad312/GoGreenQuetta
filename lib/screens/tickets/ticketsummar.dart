@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:greenbus_frontend/screens/tickets/ticketconfirm.dart';
 
 class TicketSummaryScreen extends StatelessWidget {
@@ -13,19 +13,19 @@ class TicketSummaryScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Ticket Summary'),
-        backgroundColor: Colors.green.shade700,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 1,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            _ticketCard(theme),
+            _ticketCard(context),
             const Spacer(),
-            _paymentSummary(theme, price),
+            _paymentSummary(context, price),
             const SizedBox(height: 20),
             _confirmButton(context, price),
           ],
@@ -34,18 +34,18 @@ class TicketSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _ticketCard(ThemeData theme) {
+  Widget _ticketCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color: Theme.of(context).shadowColor.withOpacity(0.08),
             blurRadius: 10,
-            offset: Offset(0, 5),
+            offset: const Offset(0, 5),
           ),
         ],
       ),
@@ -54,45 +54,57 @@ class TicketSummaryScreen extends StatelessWidget {
         children: [
           Text(
             'Ticket Details',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          _buildInfoRow(Icons.route, 'Route', route['routeName']),
+          _buildInfoRow(Icons.route, 'Route', route['routeName'], context),
           const SizedBox(height: 16),
-          _buildInfoRow(Icons.directions_bus, 'Bus Number', route['busNumber']),
+          _buildInfoRow(
+            Icons.directions_bus,
+            'Bus Number',
+            route['busNumber'],
+            context,
+          ),
           const SizedBox(height: 16),
-          _buildInfoRow(Icons.schedule, 'Timings', route['timings'].join(', ')),
+          _buildInfoRow(
+            Icons.schedule,
+            'Timings',
+            route['timings'].join(', '),
+            context,
+          ),
         ],
       ),
     );
   }
 
-  Widget _paymentSummary(ThemeData theme, int price) {
+  Widget _paymentSummary(BuildContext context, int price) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
-        color: Colors.green.shade50,
+        color: Theme.of(context).colorScheme.secondary.withOpacity(0.08),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.green.shade200),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             'Total Price',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.green.shade800,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w500,
             ),
           ),
           Text(
             'Rs. $price',
-            style: theme.textTheme.titleLarge?.copyWith(
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.green.shade900,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],
@@ -111,8 +123,8 @@ class TicketSummaryScreen extends StatelessWidget {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green.shade700,
-          foregroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
@@ -122,11 +134,16 @@ class TicketSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String title, String value) {
+  Widget _buildInfoRow(
+    IconData icon,
+    String title,
+    String value,
+    BuildContext context,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 24, color: Colors.green.shade600),
+        Icon(icon, size: 24, color: Theme.of(context).colorScheme.primary),
         const SizedBox(width: 14),
         Expanded(
           child: Column(
@@ -134,14 +151,18 @@ class TicketSummaryScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Theme.of(context).hintColor,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
                 value,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
             ],
