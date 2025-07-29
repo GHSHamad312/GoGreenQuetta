@@ -24,7 +24,9 @@ void main() async {
         ChangeNotifierProvider(create: (_) => RouteProvider()..fetchRoutes()),
         ChangeNotifierProvider(create: (_) => BusProvider()),
         ChangeNotifierProvider(create: (_) => TicketProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider()..load_prefrences(),
+        ),
       ],
       child: GoGreenQuetta(),
     ),

@@ -15,7 +15,7 @@ class TicketSummaryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Ticket Summary'),
+        title: Text('Ticket Summary'),
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 1,
       ),
@@ -23,18 +23,18 @@ class TicketSummaryScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            _ticketCard(context),
-            const Spacer(),
-            _paymentSummary(context, price),
-            const SizedBox(height: 20),
-            _confirmButton(context, price),
+            ticketCard(context),
+            Spacer(),
+            paymentSummary(context, price),
+            SizedBox(height: 20),
+            confirmButton(context, price),
           ],
         ),
       ),
     );
   }
 
-  Widget _ticketCard(BuildContext context) {
+  Widget ticketCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
       width: double.infinity,
@@ -59,16 +59,16 @@ class TicketSummaryScreen extends StatelessWidget {
             ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          _buildInfoRow(Icons.route, 'Route', route['routeName'], context),
+          buildInfoRow(Icons.route, 'Route', route['routeName'], context),
           const SizedBox(height: 16),
-          _buildInfoRow(
+          buildInfoRow(
             Icons.directions_bus,
             'Bus Number',
             route['busNumber'],
             context,
           ),
-          const SizedBox(height: 16),
-          _buildInfoRow(
+          SizedBox(height: 16),
+          buildInfoRow(
             Icons.schedule,
             'Timings',
             route['timings'].join(', '),
@@ -79,7 +79,7 @@ class TicketSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _paymentSummary(BuildContext context, int price) {
+  Widget paymentSummary(BuildContext context, int price) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -112,11 +112,11 @@ class TicketSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _confirmButton(BuildContext context, int price) {
+  Widget confirmButton(BuildContext context, int price) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton.icon(
-        onPressed: () => _handleConfirm(context, price),
+        onPressed: () => handleConfirm(context, price),
         icon: const Icon(Icons.lock),
         label: const Text(
           'Confirm & Pay Securely',
@@ -134,7 +134,7 @@ class TicketSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(
+  Widget buildInfoRow(
     IconData icon,
     String title,
     String value,
@@ -172,7 +172,7 @@ class TicketSummaryScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _handleConfirm(BuildContext context, int price) async {
+  Future<void> handleConfirm(BuildContext context, int price) async {
     try {
       final firestore = FirebaseFirestore.instance;
 
