@@ -10,7 +10,6 @@ class TicketSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const int price = 100;
-    final theme = Theme.of(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,

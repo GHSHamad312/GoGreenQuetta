@@ -44,7 +44,6 @@ class AboutScreen extends StatelessWidget {
             ],
           ),
 
-          // Content
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 30),
@@ -83,7 +82,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    "Version 1.0.0",
+                    "Version 1.1.0",
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).hintColor,
@@ -92,7 +91,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 30),
                   Text(
-                    "Green Bus is your smart transport companion designed to make your daily commute easier and greener. Track buses in real-time, purchase tickets seamlessly, and enjoy a smarter way to travel.",
+                    "Green Bus is your smart transport companion designed to make your daily commute easier and greener. Track buses in real-time, purchase tickets seamlessly, and enjoy a smarter way to travel. ",
                     style: TextStyle(
                       fontSize: 18,
                       height: 1.5,

@@ -36,7 +36,7 @@ class _AccountScreenState extends State<AccountScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: Column(
         children: [
           FutureBuilder<Map<String, dynamic>>(
@@ -174,7 +174,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         color: colorScheme.onSurface.withOpacity(0.7),
                       ),
                       onTap: () async {
-                        await authProvider.logout;
+                        await authProvider.logout();
                         if (mounted) {
                           Navigator.pushAndRemoveUntil(
                             context,

@@ -3,7 +3,6 @@ import 'package:greenbus_frontend/Providers/busprovider.dart';
 import 'package:greenbus_frontend/Providers/routeprovider.dart';
 import 'package:greenbus_frontend/screens/tickets/ticketsummar.dart';
 import 'package:provider/provider.dart';
-import 'package:greenbus_frontend/theme.dart';
 
 class TicketBuyScreen extends StatelessWidget {
   @override

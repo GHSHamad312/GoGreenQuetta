@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:greenbus_frontend/Providers/theme_provider.dart';
 import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/screens/app/navmain.dart';
 import 'package:greenbus_frontend/screens/auth/Loginscreen.dart';

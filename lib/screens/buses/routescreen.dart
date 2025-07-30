@@ -1,8 +1,6 @@
 import 'package:greenbus_frontend/Providers/routeprovider.dart';
 import 'package:greenbus_frontend/screens/buses/routeinfo.dart';
 import 'package:flutter/material.dart';
-import 'package:greenbus_frontend/Providers/routeprovider.dart';
-import 'package:greenbus_frontend/screens/buses/routeinfo.dart';
 
 Widget buildRoutes(RouteProvider provider) {
   if (provider.isLoading) {

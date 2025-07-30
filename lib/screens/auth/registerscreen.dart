@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:greenbus_frontend/Providers/authprovider.dart';
-import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/screens/auth/emailverify.dart';
 import 'package:greenbus_frontend/screens/auth/loginscreen.dart';
-import 'package:provider/provider.dart';
 
 class Registerscreen extends StatelessWidget {
   const Registerscreen({super.key});
@@ -13,9 +10,6 @@ class Registerscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const double bdr = 15;
     const double pad_hor = 30;
-    const double pad_ver = 20;
-    final auth = Provider.of<Authprovider>(context);
-    final userdata = Provider.of<UserDataProvider>(context);
     final TextEditingController namecontroller = TextEditingController();
     final TextEditingController phonecontroller = TextEditingController();
     final TextEditingController emailcontroller = TextEditingController();

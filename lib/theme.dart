@@ -22,7 +22,7 @@ class AppTheme {
   ); // Softer dark base
   static const Color cardDark = Color(0xFF2A2B2D);
   static const Color accentDark = Color(0xFF2C2C2C);
-  static const Color textDark = Color(0xFFCCCCCC); // Muted off-white
+  static const Color textDark = Color(0xFFB0B0B0); // Softer gray for eye comfort
   static const Color borderDark = Color(0xFF3A3A3A);
   static const Color errorDark = Color(0xFFEF5350);
 
@@ -97,11 +97,11 @@ class AppTheme {
       background: backgroundDark,
       surface: cardDark,
       error: errorDark,
-      onPrimary: Colors.black,
-      onSecondary: Colors.black,
+      onPrimary: textDark,
+      onSecondary: textDark,
       onBackground: textDark,
       onSurface: textDark,
-      onError: Colors.black,
+      onError: textDark,
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: textDark),
@@ -133,7 +133,7 @@ class AppTheme {
     iconTheme: const IconThemeData(color: secondaryDark),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: primaryDark,
-      foregroundColor: Colors.black,
+      foregroundColor: textDark,
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: const Color(0xFF2E2F31),
