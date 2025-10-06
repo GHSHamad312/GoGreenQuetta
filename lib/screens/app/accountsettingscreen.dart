@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:greenbus_frontend/Providers/userdataprovider.dart';
-import 'package:greenbus_frontend/Providers/authprovider.dart';
+import 'package:greenbus_frontend/Providers/authprovider.dart' as myauth;
 import 'package:greenbus_frontend/components/waveclipper.dart';
 import 'package:greenbus_frontend/screens/auth/loginscreen.dart';
 import 'package:greenbus_frontend/screens/settings/about.dart';
@@ -31,7 +31,10 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<Authprovider>(context, listen: false);
+    final authProvider = Provider.of<myauth.Authprovider>(
+      context,
+      listen: false,
+    );
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -142,10 +145,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   AboutScreen(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 10,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   child: Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
@@ -212,10 +212,7 @@ class _AccountScreenState extends State<AccountScreen> {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           leading: Icon(icon, color: colorScheme.primary),
           title: Text(
             title,

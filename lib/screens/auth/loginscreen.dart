@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:greenbus_frontend/Providers/authprovider.dart';
+import 'package:greenbus_frontend/Providers/authprovider.dart' as myauth;
 import 'package:greenbus_frontend/screens/app/navmain.dart';
 import 'package:greenbus_frontend/screens/auth/emailverify.dart';
 import 'package:greenbus_frontend/screens/auth/registerscreen.dart';
@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     double bdr = 15;
     double pad_hor = 30;
-    final auth = Provider.of<Authprovider>(context);
+    final auth = Provider.of<myauth.Authprovider>(context);
 
     return Scaffold(
       body: Container(

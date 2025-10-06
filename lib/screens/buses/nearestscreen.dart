@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import '../../Providers/routeprovider.dart';
 
 class NearestBusWidget extends StatefulWidget {
-  const NearestBusWidget({super.key});
+  final bool autoFind;
+  const NearestBusWidget({super.key, this.autoFind = false});
 
   @override
   State<NearestBusWidget> createState() => _NearestBusWidgetState();
@@ -24,6 +25,12 @@ class _NearestBusWidgetState extends State<NearestBusWidget> {
   void initState() {
     super.initState();
     _checkPermission();
+    // if this widget was requested to auto-find, schedule the search once the frame is ready
+    if (widget.autoFind) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) findNearestBus();
+      });
+    }
   }
 
   Future<void> _checkPermission() async {

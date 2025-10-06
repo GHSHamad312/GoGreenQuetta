@@ -10,10 +10,12 @@ import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:greenbus_frontend/screens/auth/authverify.dart';
 import 'package:greenbus_frontend/theme.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     MultiProvider(
@@ -28,7 +30,7 @@ void main() async {
           create: (_) => ThemeProvider()..load_prefrences(),
         ),
       ],
-      child: GoGreenQuetta(),
+      child: const GoGreenQuetta(),
     ),
   );
 }

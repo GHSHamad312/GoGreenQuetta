@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:greenbus_frontend/Providers/authprovider.dart';
 import 'package:greenbus_frontend/Providers/ticketprovider.dart';
+import 'package:greenbus_frontend/Providers/userdataprovider.dart';
 import 'package:provider/provider.dart';
 
 class TicketConfirmationScreen extends StatefulWidget {
@@ -42,11 +45,14 @@ class _TicketConfirmationScreenState extends State<TicketConfirmationScreen>
   Future<void> _storeTransaction() async {
     final ticketProvider = Provider.of<TicketProvider>(context, listen: false);
 
+    final userProvider = Provider.of<Authprovider>(context, listen: false);
+    final User user = userProvider.currentUser!;
     await ticketProvider.storeTransaction(
       busNumber: widget.route['busNumber'],
       routeName: widget.route['routeName'],
       dateTime: DateTime.now(),
       amount: widget.amount,
+      userId: user.uid,
     );
 
     setState(() {
