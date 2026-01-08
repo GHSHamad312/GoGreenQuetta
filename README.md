@@ -152,6 +152,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 <div align="center">
   
-  **Made with ❤️ by [Hamad Ali Shah](https://github.com/ghshamad)**
+  **Made with ❤️ by [Hamad Ali Shah](https://github.com/ghshamad312)**
   
 </div>
